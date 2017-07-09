@@ -6,16 +6,7 @@ import * as logger from 'morgan';
 import InfoRouter from './api/info/InfoRouter';
 import IndexRouter from './api/IndexRouter';
 import {run} from 'f-promise';
-
-let config;
-try {
-    const confFilePath = process.env.CONF_FILE;
-    if (!confFilePath) throw new Error('CONF_FILE environment variable must be set with configuration file path');
-    config = require(confFilePath);
-} catch(e) {
-    console.error(`Configuration file not found.`, e.message);
-    process.exit(1);
-}
+import config from './common/config';
 
 export default function main() {
     run(() => {

@@ -1,8 +1,14 @@
-
+import InfoDbDao from "./InfoDbDao";
 
 export default class InfoService {
-    public getInfos() {
+    private dbDao: InfoDbDao;
 
+    constructor() {
+        this.dbDao = new InfoDbDao;
+
+    }
+    public getInfos() {
+        return this.dbDao.list();
     }
 
     public addInfo(info) {
