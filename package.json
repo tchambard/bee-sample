@@ -1,0 +1,29 @@
+{
+  "name": "bee-sample",
+  "version": "1.0.0",
+  "scripts": {
+    "start": "node .",
+    "clean": "./node_modules/.bin/rimraf build",
+    "lint": "./node_modules/.bin/tslint --force --format verbose \"src/**/*.ts\"",
+    "lint-fix": "npm run lint -- --fix",
+    "compile": "./node_modules/.bin/tsc --pretty",
+    "compile-watch": "./node_modules/.bin/tsc --pretty -w",
+    "clean-compile": "npm run clean && npm run compile",
+    "clean-lint-compile": "npm run clean && npm run lint && echo Using TypeScript && npm run compile"
+  },
+  "dependencies": {
+    "body-parser": "~1.17.1",
+    "cookie-parser": "~1.4.3",
+    "debug": "~2.6.3",
+    "express": "~4.15.2",
+    "f-promise": "^1.2.3",
+    "hbs": "~4.0.1",
+    "morgan": "~1.8.1",
+    "serve-favicon": "~2.4.2"
+  },
+  "devDependencies": {
+    "@types/mongodb": "^2.2.7",
+    "@types/node": "^8.0.9",
+    "rimraf": "^2.6.1"
+  }
+}
