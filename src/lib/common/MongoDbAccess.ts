@@ -8,8 +8,38 @@ export default class MongoDbAccess {
     public static getDbConnection() {
         if (!db) {
             const dbUrl = `mongodb://${config.dbHost}:${config.dbPort}/${config.dbName}`;
-            console.log(`Initializing db: ${dbUrl}`);
-            db = wait(MongoClient.connect(dbUrl));
+            try {
+                db = wait(MongoClient.connect(dbUrl));
+                console.log(`Connected to: ${dbUrl}`);
+                
+                db.on('close', function () {
+                    console.log('Db connection closed');
+                    db = null;
+                });
+                
+                db.on('error', function (err) {
+                    console.log('Db connection error', err);
+                });
+                
+                db.on('disconnect', function (err) {
+                    console.log('Db connection disconnect', err);
+                });
+                
+                db.on('disconnected', function (err) {
+                    console.log('Db connection disconnected', err);
+                });
+                
+                db.on('parseError', function (err) {
+                    console.log('Db connection parse', err);
+                });
+                
+                db.on('timeout', function (err) {
+                    console.log('Db connection timeout', err);
+                });
+
+            } catch(e) {
+                throw new Error(`Database connection failed.`);
+            }
         }
         return db;
     }

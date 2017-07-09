@@ -3,10 +3,11 @@ import * as path from 'path';
 import * as bodyParser from 'body-parser';
 import * as http from 'http';
 import * as logger from 'morgan';
-import InfoRouter from './api/info/InfoRouter';
-import IndexRouter from './api/IndexRouter';
+import InfoRouter from './api/user/UserRoutes';
+import AppInitializer from './app/AppInitializer';
 import {run} from 'f-promise';
 import config from './common/config';
+import ApiInitializer from "./api/ApiInitializer";
 
 export default function main() {
     run(() => {
@@ -103,6 +104,7 @@ function startHttpServer(app) {
 
 }
 
+
 function setupRouters(app) {
 
     // view engine setup
@@ -112,9 +114,7 @@ function setupRouters(app) {
     app.use(logger('dev'));
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({extended: false}));
-    app.use(express.static(path.join(__dirname, 'public')));
-
-    app.use('/', new IndexRouter().router);
+    app.use(express.static(path.join(process.cwd(), 'public')));
 
     // setup fiber
     app.use((req, res, next) => {
@@ -125,7 +125,8 @@ function setupRouters(app) {
         });
     });
 
-    app.use('/info', new InfoRouter().router);
+    app.use('/', new AppInitializer().router);
+    app.use('/api', new ApiInitializer().router);
 
     // catch 404 and forward to error handler
     app.use(function (req, res, next) {
@@ -143,6 +144,7 @@ function setupRouters(app) {
         // render the error page
         res.status(err.status || 500);
         res.render('error');
+        console.error('Application error handler: ', err.stack);
     });
 
 }

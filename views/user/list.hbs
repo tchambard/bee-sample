@@ -1,0 +1,17 @@
+<h1>Users list</h1>
+<table>
+    <thead>
+    <th>Id</th>
+    <th>Firstname</th>
+    <th>Lastname</th>
+    </thead>
+    <tbody>
+    {{#users}}
+        <tr>
+            <td>{{id}}</td>
+            <td>{{firstname}}</td>
+            <td>{{lastname}}</td>
+        </tr>
+    {{/users}}
+    </tbody>
+</table>
