@@ -13,18 +13,15 @@ export default class UserRoutes {
     }
 
     private initRoutes() {
-        this.router.get(`${this.baseUrl}`, (req, res) => {
+        this.router.get(`${this.baseUrl}/list`, (req, res) => {
             const users = this.service.getUsers();
-            console.log("Users:", users)
             res.render('user/list', { users });
         });
-/*
-        this.router.get(`${this.baseUrl}/:id`, (req, res,) => {
-            const id = req.params.id;
-            const user = this.service.getUser(id);
-            res.send(user);
-        });
 
+        this.router.get(`${this.baseUrl}/create`, (req, res,) => {
+            res.render('user/create');
+        });
+/*
         this.router.post(`${this.baseUrl}`, (req, res) => {
             const user = req.body;
             const userCreated = this.service.addUser(user);

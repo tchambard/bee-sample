@@ -1,6 +1,5 @@
 import { wait } from 'f-promise';
 import MongoDbAccess from '../../common/MongoDbAccess';
-import * as uuid from 'uuid';
 
 export default class UserDbDao {
 
@@ -25,7 +24,6 @@ export default class UserDbDao {
     }
 
     public insert(user) {
-        user.id = uuid.v4();
         const insertResult: any = wait(this.collection.insertOne(user));
         if (insertResult.result.ok === 1) {
             return user;

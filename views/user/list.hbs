@@ -1,17 +1,19 @@
 <h1>Users list</h1>
-<table>
+
+<table class="table">
     <thead>
-    <th>Id</th>
     <th>Firstname</th>
     <th>Lastname</th>
+    <th>Photo</th>
     </thead>
     <tbody>
     {{#users}}
         <tr>
-            <td>{{id}}</td>
             <td>{{firstname}}</td>
             <td>{{lastname}}</td>
+            <td><image src="{{photo}}" height="42"</td>
         </tr>
     {{/users}}
     </tbody>
 </table>
+<a href="/user/create">Create a new user</a>

@@ -112,8 +112,8 @@ function setupRouters(app) {
     app.set('view engine', 'hbs');
 
     app.use(logger('dev'));
-    app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded({extended: false}));
+    app.use(bodyParser.json({limit: '50mb'}));
+    app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
     app.use(express.static(path.join(process.cwd(), 'public')));
 
     // setup fiber

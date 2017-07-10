@@ -1,0 +1,46 @@
+<h1>User creation</h1>
+<script>
+    function getImage() {
+
+        var reader = new FileReader();
+        var f = document.getElementById("file").files;
+
+        reader.onloadend = function () {
+            console.log("JQUERY TRY")
+            $('input[name="photo"]').val(reader.result);
+
+            console.log(reader.result);
+        };
+        reader.readAsDataURL(f[0]);
+
+    }
+</script>
+<form method="POST" action="/api/user">
+    <input type="hidden" name="redirect" value="http://www.opera.com" />
+
+    <div class="form-group">
+        <label for="firstname">Firstname:</label>
+        <input type="text" class="form-control" name="firstname">
+    </div>
+    <div class="form-group">
+        <label for="lastname">Lastname:</label>
+        <input type="text" class="form-control" name="lastname">
+    </div>
+    <div class="form-group">
+        <label for="email">Email address:</label>
+        <input type="email" class="form-control" name="email">
+    </div>
+    <div class="form-group">
+        <label for="pwd">Password:</label>
+        <input type="password" class="form-control" name="pwd">
+    </div>
+    <div>
+        <label for="file">Photo</label>
+        <input type="file" id="file" name="file" onchange="getImage(this.files)" >
+        <input type="hidden" name="photo"/>
+    </div>
+    <button type="submit" class="btn btn-default">Create user</button>
+</form>
+
+<br/>
+<a href="/user/list">List of users</a>
