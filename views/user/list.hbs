@@ -1,19 +1,28 @@
-<h1>Users list</h1>
+<div class="panel-heading">
+    <ul class="nav nav-pills">
+        <li role="presentation"><a href="/">Home</a></li>
+        <li role="presentation" class="active"><a href="#">List of users</a></li>
+        <li role="presentation"><a href="/user/create">Create new user</a></li>
+    </ul>
+</div>
 
-<table class="table">
-    <thead>
-    <th>Firstname</th>
-    <th>Lastname</th>
-    <th>Photo</th>
-    </thead>
-    <tbody>
-    {{#users}}
-        <tr>
-            <td>{{firstname}}</td>
-            <td>{{lastname}}</td>
-            <td><image src="{{photo}}" height="42"</td>
-        </tr>
-    {{/users}}
-    </tbody>
-</table>
-<a href="/user/create">Create a new user</a>
+<div class="panel-body">
+    <h2>Users list</h2>
+
+    <table class="table">
+        <thead>
+        <th>Firstname</th>
+        <th>Lastname</th>
+        <th>Photo</th>
+        </thead>
+        <tbody>
+        {{#users}}
+            <tr>
+                <td>{{firstname}}</td>
+                <td>{{lastname}}</td>
+                <td><image src="{{photo}}" height="42"</td>
+            </tr>
+        {{/users}}
+        </tbody>
+    </table>
+</div>
