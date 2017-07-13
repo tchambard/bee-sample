@@ -3,15 +3,23 @@ import { wait } from 'f-promise';
 import config from '../common/config';
 
 let db;
+let futures: Function[] = [];
 
 export default class MongoDbAccess {
+    public static registerFuture(fn: Function) {
+        futures.push(fn);
+    }
+
     public static getDbConnection() {
         if (!db) {
             const dbUrl = `mongodb://${config.dbHost}:${config.dbPort}/${config.dbName}`;
             try {
                 db = wait(MongoClient.connect(dbUrl));
                 console.log(`Connected to: ${dbUrl}`);
-                
+                futures.forEach((fn) => {
+                    fn();
+                });
+
                 db.on('close', function () {
                     console.log('Db connection closed');
                     db = null;

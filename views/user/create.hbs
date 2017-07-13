@@ -1,21 +1,49 @@
 <h1>User creation</h1>
 <script>
-    function getImage() {
+    $(function() {
+        $('form').submit(function(e) {
+            //prevent Default functionality
+            e.preventDefault();
 
+            $.ajax({
+                url: '/api/user',
+                type: 'post',
+                dataType: 'application/json',
+                data: $("#form").serialize()
+            })
+            .always(function( data_jqXHR, textStatus, jqXHR_errorThrown ) {
+                var jqXHR;
+                if (textStatus === 'success') {
+                    jqXHR = jqXHR_errorThrown;
+                } else {
+                    jqXHR = data_jqXHR;
+                }
+                switch (jqXHR.status) {
+                    case 200:
+                    case 201:
+                    case 204:
+                    case 401:
+                        window.location = '/user/list';
+                        break;
+                    default:
+                        alert(jqXHR);
+                        break;
+                }
+            });
+            return false;
+        });
+    });
+
+    function getImage() {
         var reader = new FileReader();
         var f = document.getElementById("file").files;
-
         reader.onloadend = function () {
-            console.log("JQUERY TRY")
             $('input[name="photo"]').val(reader.result);
-
-            console.log(reader.result);
         };
         reader.readAsDataURL(f[0]);
-
     }
 </script>
-<form method="POST" action="/api/user">
+<form id="form">
     <input type="hidden" name="redirect" value="http://www.opera.com" />
 
     <div class="form-group">

@@ -17,6 +17,7 @@ export default class ImageFsDao {
     }
 
     public getBase64(imagePath) {
+        console.log("imagePath:", imagePath);
         const fileContent: any = wait(fs.readFile(imagePath));
         return new Buffer(fileContent).toString('base64');
     }

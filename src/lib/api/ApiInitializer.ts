@@ -1,20 +1,16 @@
 import * as express from 'express';
 import UserRoutes from "./user/UserRoutes";
 import { run } from 'f-promise';
+import UserService from "./user/UserService";
 
 export default class ApiInitializer {
 
     public router: any;
 
-    constructor() {
+    constructor(userService: UserService) {
         this.router = express.Router();
-        this.initRoutes();
-    }
-
-    private initRoutes() {
-        new UserRoutes(this.router);
         this.setupErrorHandler();
-
+        new UserRoutes(this.router, userService);
     }
 
     private setupErrorHandler() {

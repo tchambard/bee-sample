@@ -2,9 +2,14 @@ import { wait } from 'f-promise';
 import MongoDbAccess from '../../common/MongoDbAccess';
 
 export default class UserDbDao {
+    private collectionName: string;
 
     constructor() {
-        this.collection.ensureIndex({ id: 1 }, { unique: true });
+        this.collectionName = 'user';
+        MongoDbAccess.registerFuture(() => {
+            console.log(`Ensure index on collection ${this.collectionName}`);
+            this.collection.ensureIndex({ id: 1 }, { unique: true });
+        });
     }
 
     public list(query?: any, projection?: object): any[] {
@@ -41,6 +46,6 @@ export default class UserDbDao {
     }
 
     private get collection(): any {
-        return MongoDbAccess.getDbConnection().collection('user');
+        return MongoDbAccess.getDbConnection().collection(this.collectionName);
     }
 }

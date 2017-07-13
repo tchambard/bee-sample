@@ -19,9 +19,11 @@
     "f-promise": "^1.2.3",
     "fs-extra": "^3.0.1",
     "hbs": "~4.0.1",
+    "lodash": "^4.17.4",
     "mongodb": "^2.2.30",
     "morgan": "~1.8.1",
     "serve-favicon": "~2.4.2",
+    "source-map-support": "^0.4.15",
     "uuid": "^3.1.0"
   },
   "devDependencies": {

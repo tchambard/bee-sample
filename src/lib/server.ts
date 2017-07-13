@@ -3,11 +3,10 @@ import * as path from 'path';
 import * as bodyParser from 'body-parser';
 import * as http from 'http';
 import * as logger from 'morgan';
-import InfoRouter from './api/user/UserRoutes';
 import AppInitializer from './app/AppInitializer';
 import {run} from 'f-promise';
-import config from './common/config';
 import ApiInitializer from "./api/ApiInitializer";
+import UserService from "./api/user/UserService";
 
 export default function main() {
     run(() => {
@@ -125,8 +124,9 @@ function setupRouters(app) {
         });
     });
 
-    app.use('/', new AppInitializer().router);
-    app.use('/api', new ApiInitializer().router);
+    const userService = new UserService();
+    app.use('/', new AppInitializer(userService).router);
+    app.use('/api', new ApiInitializer(userService).router);
 
     // catch 404 and forward to error handler
     app.use(function (req, res, next) {

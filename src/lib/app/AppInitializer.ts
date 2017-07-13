@@ -1,14 +1,15 @@
 import * as express from 'express';
 import UserRoutes from "./UserRoutes";
+import UserService from "../api/user/UserService";
 
 export default class AppInitializer {
     public router;
     private userRoutes: UserRoutes;
 
-    constructor() {
+    constructor(userService: UserService) {
         this.router = express.Router();
         this.initRoutes();
-        this.userRoutes = new UserRoutes(this.router);
+        this.userRoutes = new UserRoutes(this.router, userService);
     }
 
     private initRoutes() {
@@ -16,7 +17,6 @@ export default class AppInitializer {
            res.render('index', {title: 'Bee sample application'});
         });
 
-        new UserRoutes(this.router);
     }
 
 }

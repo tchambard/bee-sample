@@ -1,20 +1,20 @@
 import UserService from "../api/user/UserService";
 
 export default class UserRoutes {
-    private service: UserService;
     private router: any;
     private baseUrl = '/user';
+    private userService: UserService;
 
 
-    constructor(router) {
+    constructor(router, userService) {
         this.router = router;
-        this.service = new UserService();
+        this.userService = userService;
         this.initRoutes();
     }
 
     private initRoutes() {
         this.router.get(`${this.baseUrl}/list`, (req, res) => {
-            const users = this.service.getUsers();
+            const users = this.userService.getUsers();
             res.render('user/list', { users });
         });
 

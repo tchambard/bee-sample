@@ -27,7 +27,7 @@ export default class UserService {
             password: user.password,
         };
 
-        if (user.file && user.photo) {
+        if (user.photo) {
             try {
                 const content = user.photo.indexOf(';base64') !== -1 ? user.photo.split(';base64')[1] : user.photo;
                 userInfos.photo = this.imageFsDao.insert(userInfos.id, content);
@@ -48,7 +48,9 @@ export default class UserService {
     }
 
     private replacePhotoPathWithBase64(user) {
-        user.photo = 'data:image/png;base64,' + this.imageFsDao.getBase64(user.photo);
+        if (user.photo) {
+            user.photo = 'data:image/png;base64,' + this.imageFsDao.getBase64(user.photo);
+        }
         return user;
     }
 }
