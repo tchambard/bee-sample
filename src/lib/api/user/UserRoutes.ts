@@ -32,7 +32,7 @@ export default class UserRoutes {
         this.router.delete(`${this.baseUrl}/:id`, (req, res) => {
             const id = req.params.id;
             this.userService.removeUser(id);
-            res.status(204);
+            res.status(204).send();
         });
     }
 }

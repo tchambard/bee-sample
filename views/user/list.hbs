@@ -1,3 +1,16 @@
+<script>
+    function deleteUser(id) {
+        $.ajax({
+            url: '/api/user/' + id,
+            type: 'delete',
+            dataType: 'application/json'
+        })
+        .always(function() {
+            location.reload();
+        });
+    }
+</script>
+
 <div class="panel-heading">
     <ul class="nav nav-pills">
         <li role="presentation"><a href="/">Home</a></li>
@@ -14,13 +27,19 @@
         <th>Firstname</th>
         <th>Lastname</th>
         <th>Photo</th>
+        <th>Actions</th>
         </thead>
         <tbody>
         {{#users}}
             <tr>
                 <td>{{firstname}}</td>
                 <td>{{lastname}}</td>
-                <td><image src="{{photo}}" height="42"</td>
+                <td><image src="{{photo}}" height="42"/></td>
+                <td>
+                    <button type="button" class="btn btn-default btn-danger" onclick="deleteUser('{{id}}')">
+                        <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                    </button>
+                </td>
             </tr>
         {{/users}}
         </tbody>

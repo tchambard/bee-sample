@@ -10,14 +10,19 @@ export default class ImageFsDao {
         this.directory = path.join(config.storage, 'images');
     }
 
-    public insert(userId, base64Data) {
+    public insert(userId: string, base64Data: string) {
         const filePath = path.join(this.directory, userId)
         wait(fs.writeFile(filePath, Buffer.from(base64Data, 'base64')));
         return filePath;
     }
 
-    public getBase64(imagePath) {
+    public getBase64(imagePath: string) {
         const fileContent: any = wait(fs.readFile(imagePath));
         return new Buffer(fileContent).toString('base64');
+    }
+
+    public remove(userId: string): void {
+        const filePath = path.join(this.directory, userId);
+        wait(fs.unlink(filePath));
     }
 }

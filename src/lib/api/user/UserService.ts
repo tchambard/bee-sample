@@ -44,6 +44,7 @@ export default class UserService {
     }
 
     public removeUser(id) {
+        this.imageFsDao.remove(id);
         return this.userDbDao.delete(id);
     }
 
