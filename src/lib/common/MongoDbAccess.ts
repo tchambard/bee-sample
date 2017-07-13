@@ -19,6 +19,7 @@ export default class MongoDbAccess {
                 futures.forEach((fn) => {
                     fn();
                 });
+                futures = [];
 
                 db.on('close', function () {
                     console.log('Db connection closed');
